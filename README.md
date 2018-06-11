@@ -1,4 +1,12 @@
 # Belgium Trash Pickup
+[![Travis build status](https://img.shields.io/travis/Savjee/trash-pickup-belgium.svg)](https://travis-ci.org/Savjee/trash-pickup-belgium)
+[![Current version](https://img.shields.io/npm/v/trash-pickup-belgium.svg)](https://www.npmjs.com/package/trash-pickup-belgium)
+[![Downloads on npm](https://img.shields.io/npm/dt/trash-pickup-belgium.svg)](https://www.npmjs.com/package/trash-pickup-belgium)
+[![License](https://img.shields.io/npm/l/trash-pickup-belgium.svg)](/LICENSE)
+[![Dependencies](https://img.shields.io/david/savjee/trash-pickup-belgium.svg)](https://www.npmjs.com/package/trash-pickup-belgium)
+
+
+
 Simple library to fetch trashpickups in Belgium (Ophaalkalender). It wraps around the API that is powering [ophaalkalender.be](http://www.ophaalkalender.be).
 
 The library uses Promises and supports async/await. It also uses classes so an up-to-date version of node is required.
