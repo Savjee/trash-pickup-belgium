@@ -2,12 +2,26 @@
   "name": "trash-pickup-belgium",
   "version": "1.0.0",
   "description": "Simple library to fetch trashpickups in Belgium (Ophaalkalender)",
+  "keywords": [
+    "trash",
+    "belgium",
+    "async/await",
+    "promises"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Savjee/trash-pickup-belgium.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Savjee/trash-pickup-belgium/issues"
+  },
+  "homepage": "https://github.com/Savjee/trash-pickup-belgium",
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Xavier Decuyper",
-  "license": "ISC",
+  "author": "Xavier Decuyper <hi@savjee.be>",
+  "license": "MIT",
   "dependencies": {
     "needle": "^2.2.1"
   }
