@@ -1,0 +1,14 @@
+{
+  "name": "trash-pickup-belgium",
+  "version": "1.0.0",
+  "description": "Simple library to fetch trashpickups in Belgium (Ophaalkalender)",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Xavier Decuyper",
+  "license": "ISC",
+  "dependencies": {
+    "needle": "^2.2.1"
+  }
+}
