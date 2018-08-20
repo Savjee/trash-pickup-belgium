@@ -30,11 +30,29 @@ class TrashPickupFinder{
      *
      */
     async getTrashPickups() {
-        if (!this.config.streetId) {
-            this.config.streetId = await this._fetchStreetId();
-        }
-
+        await this._fetchStreetId();
         return this._fetchTrashPickups();
+    }
+
+    async getTrashPickupsThisWeek(){
+        await this._fetchStreetId();
+
+        // Calculate begin & end date of the week. We add +1 to the begin date
+        // because in JS first day of the week is Sunday, not Monday.
+        const currentDate = new Date();
+        const begin = currentDate.getDate() - currentDate.getDay() + 1;
+        const end = begin + 6;
+
+        const beginDate = new Date(currentDate.setDate(begin));
+        const endDate = new Date(currentDate.setDate(end));
+
+
+        // Fetch the pickups & filter them
+        const pickups = await this._fetchTrashPickups();
+        return pickups.filter((pickup) => {
+            const pickupDate = new Date(pickup.start);
+            return pickupDate >= beginDate && pickupDate <= endDate;
+        });
     }
 
 
@@ -42,6 +60,12 @@ class TrashPickupFinder{
      * @private
      */
     async _fetchStreetId() {
+        // If we already know the streetId, return it directly and don't fetch it
+        // from the API again.
+        if(this.config.streetId && this.config.streetId !== null){
+            return this.config.streetId;
+        }
+
         console.log('Fetching the street id...');
         const data = await needle('get', `${this.config.baseApiUrl}/calendar/findstreets?query=${this.config.streetName}&zipcode=${this.config.zipcode}`);
 
@@ -55,8 +79,9 @@ class TrashPickupFinder{
             throw new Error(`Multiple matches for street "${this.config.streetName}, ${this.config.zipcode}"`);
         }
 
-        console.log(data.body[0].Id);
-        return data.body[0].Id;
+        const streetId = this.config.streetId = data.body[0].Id;
+        console.log(streetId);
+        return streetId;
     }
 
     /**
@@ -113,12 +138,3 @@ class TrashPickupFinder{
 }
 
 module.exports = TrashPickupFinder;
-
-const test = new TrashPickupFinder({
-    streetId: '46537',
-    // streetName: 'Kortrijkstraat',
-    // zipcode: '9800'
-});
-test.getTrashPickups().then((data) => {
-    console.log("done");
-});
