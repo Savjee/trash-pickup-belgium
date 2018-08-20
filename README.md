@@ -17,6 +17,7 @@ Load the library:
 const TrashPickupFinder = require('trash-pickup-belgium');
 ```
 
+## Initialize
 Initialize with an streetname and zipcode:
 ```javascript
 const trashPickupFinder = new TrashPickupFinder({
@@ -25,15 +26,52 @@ const trashPickupFinder = new TrashPickupFinder({
 });
 ```
 
-Fetching the trash pickup:
+Or initialize with a streetId (this reduces the number of API calls to 1)
+```javascript
+const trashPickupFinder = new TrashPickupFinder({
+    streetId: '46537',
+});
+```
+
+## Fetch the pickups for this week
+This fetches the trash pickups that are scheduled this week:
+
+```javascript
+trashPickupFinder.getTrashPickupsThisWeek().then((pickupData) => {
+    console.log("Pickups this week:", pickupData);
+});
+```
+
+Example return data:
+
+```json
+[
+    {
+        "allDay": true,
+        "color": "blue",
+        "start": "2018-01-04T00:00:00+01:00",
+        "title": "PMD"
+    },
+    {
+        "allDay": true,
+        "color": "grey",
+        "start": "2018-01-04T00:00:00+01:00",
+        "title": "Restafval"
+    }
+]
+```
+
+
+## Fetching all pickups for your street
+Returns all pickups for your street (usually for the entire year):
+
 ```javascript
 trashPickupFinder.getTrashPickups().then((pickupData) => {
     console.log(pickupData);
 });
 ```
 
-
-The `pickupData` will contain the raw data that the API returns. No processing is going on. Data will look like this:
+Return data will look like this:
 
 ```json
 [
@@ -72,8 +110,7 @@ The `pickupData` will contain the raw data that the API returns. No processing i
         "color": "purple",
         "start": "2018-01-18T00:00:00+01:00",
         "title": "Grof huisvuil afroep"
-    },
-    (...)
+    }
 ]
 ```
 
@@ -83,3 +120,12 @@ MIT license (see [LICENSE file](LICENSE))
 Found a bug? Have ideas for improvements? Everything is welcome!
 
 Open issues or create pull requests to contribute.
+
+# Changelog
+
+### 1.1.0
+* Added the ability to fetch the pickups for this week.
+* Added documentation on how you can pass `streetId` to reduce the amount of API calls needed.
+
+### v1.0.0
+* Initial release
